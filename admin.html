@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RingTech Admin CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body class="bg-[#060b14] text-slate-200 font-['Inter'] selection:bg-blue-500/30 overflow-x-hidden">
+
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-[#060b14]/95 backdrop-blur-md transition-opacity duration-300">
+        <div class="bg-[#0f172a] border border-slate-800 p-10 rounded-2xl shadow-2xl w-full max-w-md transform transition-all">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">Admin Portal</h1>
+                <p class="text-slate-400 text-sm">Sign in to manage blogs.</p>
+            </div>
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Email Address</label>
+                    <input type="email" id="login-email" required class="w-full bg-[#1e293b] border border-slate-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Password</label>
+                    <input type="password" id="login-password" required class="w-full bg-[#1e293b] border border-slate-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors shadow-lg shadow-blue-600/20">
+                    Sign In
+                </button>
+                <div id="login-error" class="text-red-400 text-sm text-center hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-[#0f172a] border-r border-slate-800 flex flex-col h-screen sticky top-0">
+            <div class="p-6 border-b border-slate-800">
+                <h2 class="text-xl font-bold text-white flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                    RingTech CMS
+                </h2>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="#" class="flex items-center px-4 py-3 text-white bg-blue-600/10 border border-blue-500/20 rounded-xl transition-colors">
+                    <svg class="w-5 h-5 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5L18.5 8H20"></path></svg>
+                    Manage Blogs
+                </a>
+                <a href="blogs.html" target="_blank" class="flex items-center px-4 py-3 text-slate-400 hover:text-white hover:bg-slate-800/50 rounded-xl transition-colors">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    View Live Site
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-800">
+                <button id="logout-btn" class="flex items-center w-full px-4 py-3 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-colors">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-6 md:p-10 relative">
+            <!-- Background glow -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-5xl mx-auto relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-white mb-1">Blog Management</h1>
+                        <p class="text-slate-400 text-sm">Create, edit, and publish blogs to the live site.</p>
+                    </div>
+                    <button onclick="toggleEditor(true)" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-600/20 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        New Blog
+                    </button>
+                </div>
+
+                <!-- Blogs List -->
+                <div id="admin-blog-list" class="grid gap-6">
+                    <!-- Loading State -->
+                    <div class="text-center text-slate-500 py-10">Loading blogs...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create/Edit Modal -->
+    <div id="editor-modal" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleEditor(false)"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-full md:w-[600px] bg-[#0f172a] border-l border-slate-800 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="editor-panel">
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-[#0f172a] z-10">
+                <h2 id="editor-title" class="text-xl font-bold text-white">Write a Blog</h2>
+                <button onclick="toggleEditor(false)" class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 custom-scrollbar">
+                <form id="blog-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Category / Label</label>
+                        <input type="text" id="blog-category" required placeholder="e.g. Cyber Security" class="w-full bg-[#1e293b] border border-slate-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Blog Title</label>
+                        <input type="text" id="blog-title" required placeholder="Enter an engaging title..." class="w-full bg-[#1e293b] border border-slate-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors text-lg font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Cover Image</label>
+                        <div class="border-2 border-dashed border-slate-700 rounded-xl p-8 text-center hover:border-blue-500 hover:bg-blue-500/5 transition-all cursor-pointer relative" id="image-drop-area">
+                            <input type="file" id="blog-image" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                            <div id="image-preview-container" class="hidden absolute inset-0 rounded-xl overflow-hidden">
+                                <img id="image-preview" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                    <span class="text-white text-sm font-medium">Click to change</span>
+                                </div>
+                            </div>
+                            <div id="image-placeholder" class="pointer-events-none">
+                                <svg class="w-10 h-10 mx-auto text-slate-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <p class="text-sm text-slate-400">Click or drag image to upload</p>
+                                <p class="text-xs text-slate-500 mt-1">PNG, JPG, WebP up to 5MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Read Time (e.g. 5 Min Read)</label>
+                        <input type="text" id="blog-read-time" required placeholder="5 Min Read" class="w-full bg-[#1e293b] border border-slate-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-400 mb-2">Short Description / Content</label>
+                        <textarea id="blog-content" required rows="6" placeholder="Write a compelling summary..." class="w-full bg-[#1e293b] border border-slate-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors custom-scrollbar"></textarea>
+                    </div>
+
+                </form>
+            </div>
+            
+            <div class="p-6 border-t border-slate-800 bg-[#0f172a] z-10 flex gap-4">
+                <button type="button" onclick="toggleEditor(false)" class="flex-1 px-4 py-3 text-slate-300 font-medium hover:bg-slate-800 rounded-xl transition-colors">Cancel</button>
+                <button type="button" id="save-blog-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-lg shadow-blue-600/20 flex items-center justify-center">
+                    Publish Blog
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./assets/js/supabase-config.js"></script>
+    <script src="./admin.js"></script>
+</body>
+</html>

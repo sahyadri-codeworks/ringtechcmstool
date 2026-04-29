@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post | RingTech Global</title>
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <style>
+        #navbar { background-color: #0a192f !important; padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="selection:bg-blue-500/30 bg-[#0a192f] overflow-x-hidden flex flex-col min-h-screen w-full">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="inline-flex flex-shrink-0 items-center"><img src="./assets/images/logo.png" alt="RingTech Global" class="h-10 md:h-12 w-auto object-contain"></a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="about.html" class="text-slate-200 hover:text-white text-sm font-semibold transition-colors">About Us</a>
+                    <a href="products.html" class="text-slate-200 hover:text-white text-sm font-semibold transition-colors">Products</a>
+                    <a href="DigitalTransformation.html" class="text-slate-200 hover:text-white text-sm font-semibold transition-colors">Digital Transformation</a>
+                    <a href="blogs.html" class="text-white text-sm font-semibold transition-colors">Blogs</a>
+                    <a href="tracking.html" class="text-slate-200 hover:text-white text-sm font-semibold transition-colors">Shipment Tracking</a>
+                    <a href="contact.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-md">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-24 relative overflow-hidden">
+        <!-- Abstract Background -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" id="blog-container">
+            <div class="text-center text-slate-400 py-20">
+                <svg class="animate-spin h-8 w-8 mx-auto mb-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading article...
+            </div>
+        </div>
+    </main>
+
+    <footer id="contact" class="bg-[#050d1a] pt-16 pb-8 border-t border-slate-800 w-full overflow-hidden mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <p class="text-slate-500 text-sm">&copy; 2026 RingTech Global. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./assets/js/supabase-config.js"></script>
+    <script src="./assets/js/blog-post.js"></script>
+</body>
+</html>
