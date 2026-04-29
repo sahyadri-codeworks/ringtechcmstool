@@ -102,7 +102,6 @@ function toggleEditor(show, blogId = null) {
                 document.getElementById('blog-category').value = blog.category;
                 document.getElementById('blog-read-time').value = blog.read_time;
                 document.getElementById('blog-content').value = blog.content;
-                document.getElementById('blog-url').value = blog.url || '';
                 if (blog.image_url) {
                     existingImageUrl = blog.image_url;
                     imagePreview.src = blog.image_url;
@@ -215,7 +214,6 @@ saveBlogBtn.addEventListener('click', async () => {
     const category = document.getElementById('blog-category').value;
     const readTime = document.getElementById('blog-read-time').value;
     const content = document.getElementById('blog-content').value;
-    const destUrl = document.getElementById('blog-url').value;
 
     if (!title || !content || !category) {
         alert('Please fill in Title, Category, and Content.');
@@ -249,7 +247,6 @@ saveBlogBtn.addEventListener('click', async () => {
             category,
             read_time: readTime,
             content,
-            url: destUrl || '#',
             image_url: imageUrl,
         };
 
